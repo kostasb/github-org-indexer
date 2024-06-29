@@ -21,3 +21,7 @@ Example:
 ```sh
 python indexer.py elastic
 ```
+
+## Dependencies
+
+Install Python requirements with `pip install -r requirements.txt`
