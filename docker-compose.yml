@@ -1,0 +1,25 @@
+services:
+  indexer:
+    build: ./indexer
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - ES_CLOUD_ID=${ES_CLOUD_ID}
+      - ES_USER=${ES_USER}
+      - ES_PASS=${ES_PASS}
+    command: ${GH_ORG}
+    volumes:
+      - ./:/data/:r
+
+  e2etests:
+    build: ./e2etests
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - ES_CLOUD_ID=${ES_CLOUD_ID}
+      - ES_USER=${ES_USER}
+      - ES_PASS=${ES_PASS}
+    command: ${GH_ORG}
+    volumes:
+      - ./:/data/:r
+    depends_on:
+      indexer:
+        condition: service_completed_successfully
