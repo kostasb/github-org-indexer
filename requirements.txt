@@ -1,2 +1,2 @@
-elasticsearch
-PyGithub
+elasticsearch==8.14.0
+PyGithub==2.3.0

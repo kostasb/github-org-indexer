@@ -2,7 +2,7 @@
 
 ## Overview
 
-A tool that gets a GitHub organization name as parameter and indexes the repository names, along with all the repository’s respective tags to an Elasticsearch instance.
+A tool that receives a GitHub organization name as parameter and indexes the repository names, along with all the repository’s respective tags to an Elasticsearch instance.
 
 ## Usage
 
