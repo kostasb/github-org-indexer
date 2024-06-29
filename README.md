@@ -8,7 +8,7 @@ A tool that receives a GitHub organization name as parameter and indexes the rep
 
 Requires parameter: `organization`
 
-Requires the following environment variables to be set:
+Relies on the following environment variables:
 
 - `GITHUB_TOKEN`: a [Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) to use for authentication with GitHub
 - `ES_CLOUD_ID`: Elastic Cloud cluster's [Cloud ID](https://www.elastic.co/guide/en/cloud/current/ec-cloud-id.html#ec_before_you_begin_3)
@@ -40,7 +40,7 @@ docker compose up --build
 
 Sample output:
 
-```sh
+```
 Attaching to e2etests-1, indexer-1
 indexer-1   | Retrieving repositories and tags from orgname
 indexer-1   | Fetching: orgname/test1

@@ -67,7 +67,7 @@ if __name__ == "__main__":
             "E2E TESTS PASSED",
             "documents_in_github:",
             documents_in_github,
-            "documents_in_es",
+            "documents_in_es:",
             documents_in_es,
         )
     else:
@@ -75,6 +75,6 @@ if __name__ == "__main__":
             "E2E TESTS FAILED",
             "documents_in_github:",
             documents_in_github,
-            "documents_in_es",
+            "documents_in_es:",
             documents_in_es,
         )
