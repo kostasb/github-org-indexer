@@ -3,6 +3,7 @@ from github import Github
 from argparse import ArgumentParser
 from os import getenv
 
+# Configures the maximum number of documents held in memory before flushing.
 MAX_MEMORY_QUEUE_SIZE = 1000
 
 
@@ -37,7 +38,7 @@ def create_index(client, es_index):
 
 
 def check_and_flush_queue(client, actions, max_queue_size):
-    """Checks if the number of actions excees the maximum queue size and flushes the queue to Elasticsearch"""
+    """Checks if the queue length exceeds the maximum size and flushes to Elasticsearch in bulks"""
     if len(actions) >= max_queue_size and len(actions) > 0:
         print("Indexing", len(actions), "documents to Elasticsearch")
         try:
@@ -65,9 +66,10 @@ def index_github_repos_and_tags_to_elasticsearch(
     repos = org.get_repos()
 
     actions = []
+
+    # Generates a document for each repo and tag combination
     for repo in repos:
         print("Fetching:", repo.full_name)
-
         tags = repo.get_tags()
         for tag in tags:
             actions.append(
@@ -80,7 +82,7 @@ def index_github_repos_and_tags_to_elasticsearch(
                     "tag": tag.name,
                 }
             )
-            # Check and flush the queue
+            # Check queue size and flush if needed
             check_and_flush_queue(client, actions, MAX_MEMORY_QUEUE_SIZE)
     # Final call flushes the remaining queue items
     check_and_flush_queue(client, actions, 0)
@@ -97,7 +99,6 @@ if __name__ == "__main__":
 
     GITHUB_ORG_NAME = str(args.organization)
     ES_INDEX = str(getenv("ES_INDEX", default=GITHUB_ORG_NAME))
-
     ES_USER = str(getenv("ES_USER"))
     ES_PASS = str(getenv("ES_PASS"))
     ES_CLOUD_ID = str(getenv("ES_CLOUD_ID"))

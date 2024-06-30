@@ -2,7 +2,7 @@
 
 ## Overview
 
-A tool that receives a GitHub organization name as parameter and indexes the repository names, along with all the repository’s respective tags to an Elasticsearch instance.
+A Python tool that receives a GitHub organization name as parameter and indexes the repository names along with all the repository’s respective tags to an Elasticsearch instance.
 
 ## Usage
 
@@ -22,18 +22,23 @@ Example:
 python indexer.py elastic
 ```
 
+
+### In-Memory queue configuration
+The global variable `MAX_MEMORY_QUEUE_SIZE` configures the maximum number of documents to hold in memory before flushing to Elasticsearch, which can help control memory utilization when handling high cardinality datasets, such as organizations with many repos and tags that generate many documents.
+
 ## Dependencies
 
-Install Python requirements with `pip install -r indexer/requirements.txt`
+Before running the script, install Python requirements with `pip install -r indexer/requirements.txt`
 
 ## Running in Docker
 
-The included `docker-compose.yml` file can be used to spin up an orchestrated environment that includes the indexer script as well as a basic "end to end" test that compare the number of items founds in the GitHub repository against the number of indexed documents in Elasticsearch.
+The included `docker-compose.yml` file can spin up an orchestrated environment that includes the indexer script as well as a basic "end to end" test which compares the number of items found in the GitHub repository against the number of indexed documents in Elasticsearch.
 
-In addition to the environment variables in the usage section, running the Docker environment also requires the following variable:
+In addition to the environment variables in the usage section, running Docker Compose also expects the following environment variable:
 
 - `GH_ORG`: the GitHub organization to index
 
+### Usage
 ```
 docker compose up --build
 ```
